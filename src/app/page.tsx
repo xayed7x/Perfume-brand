@@ -1,3 +1,5 @@
+import ProductCard from "@/components/ProductCard";
+
 // Define the Product type
 interface Product {
   id: number;
@@ -27,19 +29,22 @@ export default async function Home() {
   const products = await getProducts();
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
-        <h1 className="text-4xl font-bold text-center mb-8">Our Products</h1>
+    <main className="flex min-h-screen flex-col items-center p-8 sm:p-16 md:p-24">
+      <div className="w-full max-w-7xl">
+        <h1 className="text-4xl font-bold text-center mb-12">Our Products</h1>
         {products.length > 0 ? (
-          <ul>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {products.map((product) => (
-              <li key={product.id} className="text-lg mb-2">
-                {product.name} - ${product.price}
-              </li>
+              <ProductCard
+                key={product.id}
+                name={product.name}
+                brand={product.brand}
+                price={product.price}
+              />
             ))}
-          </ul>
+          </div>
         ) : (
-          <p>No products found.</p>
+          <p className="text-center text-gray-500">No products found.</p>
         )}
       </div>
     </main>
