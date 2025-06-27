@@ -1,17 +1,24 @@
 import { NextResponse } from 'next/server';
 
-// This is our mock database. In a real app, you'd fetch this from a database.
-const products = [
-  { id: '1', name: 'Chanel No. 5', brand: 'Chanel', price: 100 },
-  { id: '2', name: 'J\'adore', brand: 'Dior', price: 120 },
-];
 
-export async function GET(
-  request: Request,
-  { params }: { params: { id: string } }
-) {
-  const { id } = params;
-  const product = products.find((p) => p.id === id);
+export async function GET() {
+  const products = [
+    {
+      id: 1,
+      name: "Chanel No. 5",
+      brand: "Chanel",
+      price: 100,
+      description: "A timeless classic, the epitome of feminine fragrance. Floral aldehyde with notes of jasmine, rose, sandalwood, and vanilla.",
+    },
+    {
+      id: 2,
+      name: "J'adore",
+      brand: "Dior",
+      price: 120,
+      description: "A grand floral fragrance for women. Features ylang-ylang, Damascus rose, and sambac jasmine for an opulent and sensual scent.",
+    },
+  ];
+
 
   if (product) {
     return NextResponse.json(product);
