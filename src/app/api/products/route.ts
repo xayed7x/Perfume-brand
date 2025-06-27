@@ -1,5 +1,5 @@
-// This is the GET request handler for the products API endpoint.
-// It returns a JSON array of two mock perfume objects.
+import { NextResponse } from 'next/server';
+
 
 export async function GET() {
   const products = [
@@ -19,7 +19,15 @@ export async function GET() {
     },
   ];
 
-  return new Response(JSON.stringify(products), {
-    headers: { "Content-Type": "application/json" },
+
+  if (product) {
+    return NextResponse.json(product);
+  }
+
+  return new Response(JSON.stringify({ message: 'Product not found' }), {
+    status: 404,
+    headers: {
+      'Content-Type': 'application/json',
+    },
   });
 }
