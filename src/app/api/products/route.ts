@@ -1,7 +1,7 @@
 // This is the GET request handler for the products API endpoint.
 // It returns a JSON array of two mock perfume objects.
 
-export async function GET(request: Request) {
+export async function GET() {
   const products = [
     {
       id: 1,
