@@ -9,10 +9,14 @@ interface Product {
 }
 
 async function getProducts(): Promise<Product[]> {
-  // Determine the base URL based on the environment
-  const baseURL = process.env.VERCEL_URL
-    ? `https://${process.env.VERCEL_URL}`
-    : "http://localhost:3000";
+  // Determine the base URL using the NEXT_PUBLIC_APP_URL environment variable
+  const baseURL = process.env.NEXT_PUBLIC_APP_URL;
+
+  if (!baseURL) {
+    throw new Error(
+      "NEXT_PUBLIC_APP_URL environment variable is not set."
+    );
+  }
 
   // Construct the full, absolute URL
   const url = new URL("/api/products", baseURL);
