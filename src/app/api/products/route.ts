@@ -1,23 +1,26 @@
-// This is the GET request handler for the products API endpoint.
-// It returns a JSON array of two mock perfume objects.
+import { NextResponse } from 'next/server';
 
-export async function GET() {
-  const products = [
-    {
-      id: 1,
-      name: "Chanel No. 5",
-      brand: "Chanel",
-      price: 100,
-    },
-    {
-      id: 2,
-      name: "J'adore",
-      brand: "Dior",
-      price: 120,
-    },
-  ];
+// This is our mock database. In a real app, you'd fetch this from a database.
+const products = [
+  { id: '1', name: 'Chanel No. 5', brand: 'Chanel', price: 100 },
+  { id: '2', name: 'J\'adore', brand: 'Dior', price: 120 },
+];
 
-  return new Response(JSON.stringify(products), {
-    headers: { "Content-Type": "application/json" },
+export async function GET(
+  request: Request,
+  { params }: { params: { id: string } }
+) {
+  const { id } = params;
+  const product = products.find((p) => p.id === id);
+
+  if (product) {
+    return NextResponse.json(product);
+  }
+
+  return new Response(JSON.stringify({ message: 'Product not found' }), {
+    status: 404,
+    headers: {
+      'Content-Type': 'application/json',
+    },
   });
 }
