@@ -7,7 +7,7 @@ const products = [
 
 export async function GET(
   request: Request,
-  { params }: { params: { id:string } }
+  { params }: { params: { id: string } }
 ) {
   const { id } = params;
   const product = products.find((p) => p.id === id);
