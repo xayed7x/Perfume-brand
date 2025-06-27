@@ -9,11 +9,15 @@ interface Product {
 }
 
 async function getProducts(): Promise<Product[]> {
-  // In a real application, you would fetch from an external API
-  // or a database. For this example, we're using the mock API
-  // we created in the previous step.
-  // Ensure the URL is absolute for server-side fetching.
-  const res = await fetch("http://localhost:3000/api/products", {
+  // Determine the base URL based on the environment
+  const baseURL = process.env.VERCEL_URL
+    ? `https://${process.env.VERCEL_URL}`
+    : "http://localhost:3000";
+
+  // Construct the full, absolute URL
+  const url = new URL("/api/products", baseURL);
+
+  const res = await fetch(url.toString(), {
     cache: "no-store", // Ensure fresh data on every request
   });
 
